@@ -1,6 +1,7 @@
 import '/assets/style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
+  
   const urlParams = new URLSearchParams(window.location.search);
   const nickname = urlParams.get('nickname');
   fetch(import.meta.env.VITE_API_URL + '/' + nickname + '/words.json')
@@ -29,6 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'bg-white hover:bg-gray-100 text-gray-800 py-6 px-14 border border-gray-400 rounded shadow';
       wordPage.type = 'button';
       wordPage.textContent = `${type}`;
+      wordPage.addEventListener('click', () => {
+        alert('?type=' + type)
+        window.location.href = '../word?nickname=' + nickname + '&page=' + type ;
+      });
       cardContainer.appendChild(wordPage);
       //이후 인덱스 추가
       //const pageIndex = document.createElement('span');
