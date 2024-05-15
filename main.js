@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputValue = document.getElementById('nickname').value.trim();
     if (inputValue) {
       const requestUrl =
-        import.meta.env.VITE_API_URL + inputValue + '/words.json';
+        import.meta.env.VITE_API_URL + '/' + inputValue + '/words.json';
       fetch(requestUrl, {
         method: 'HEAD',
       })
