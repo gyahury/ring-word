@@ -27,11 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
     for (const type in typeCount) {
       const wordPage = document.createElement('button');
       wordPage.className =
-        'bg-white hover:bg-gray-100 text-gray-800 py-6 px-14 border border-gray-400 rounded shadow';
+        'bg-white hover:bg-gray-100 text-gray-800 py-4 px-8 border border-gray-400 rounded shadow';
       wordPage.type = 'button';
       wordPage.textContent = `${type}`;
       wordPage.addEventListener('click', () => {
-        alert('?type=' + type)
         window.location.href = '../word?nickname=' + nickname + '&page=' + type ;
       });
       cardContainer.appendChild(wordPage);
