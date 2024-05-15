@@ -1,6 +1,8 @@
 import '/assets/style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const page = urlParams.get('page');
   const wordDiv = document.getElementById('word');
   const curWordCountSpan = document.getElementById('curWordCount');
   const allWordCountSpan = document.getElementById('allWordCount');
