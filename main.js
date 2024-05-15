@@ -1,19 +1,27 @@
 import './style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const wordDiv = document.getElementById('word');
-  const curWordCountSpan = document.getElementById('curWordCount');
-  const allWordCountSpan = document.getElementById('allWordCount');
-  const prevButton = document.getElementById('prevButton');
-  const flipButton = document.getElementById('flipButton');
-  const nextButton = document.getElementById('nextButton');
-  let data = [];
-  
-  fetch(import.meta.env.VITE_API_URL + '/gyahury/words.json')
-    .then((response) => response.json())
-    .then((json) => {
-      data = json.words;
-      console.log(data);
-    })
-    .catch((error) => console.error(error));
+  document.getElementById('submit-btn').addEventListener('click', function () {
+    const inputValue = document.getElementById('nickname').value.trim();
+    if (inputValue) {
+      const requestUrl =
+        import.meta.env.VITE_API_URL + inputValue + '/words.json';
+      fetch(requestUrl, {
+        method: 'HEAD',
+      })
+        .then((response) => {
+          if (response.ok) {
+            location.href = './word-page?nickname='+inputValue;
+          } else {
+            alert('file does not exist');
+          }
+        })
+        .catch((error) => {
+          console.error('Error checking folder:', error);
+          alert('connect fail');
+        });
+    } else {
+      alert('enter your nickname');
+    }
+  });
 });
