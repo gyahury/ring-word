@@ -1,4 +1,4 @@
-import '../style.css';
+import '/assets/style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);

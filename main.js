@@ -1,4 +1,4 @@
-import './style.css';
+import '/assets/style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('submit-btn').addEventListener('click', function () {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
         .then((response) => {
           if (response.ok) {
-            location.href = './word-page?nickname='+inputValue;
+            location.href = './wordPage?nickname='+inputValue;
           } else {
             alert('file does not exist');
           }
