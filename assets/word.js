@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevButton = document.getElementById('prevButton');
   const flipButton = document.getElementById('flipButton');
   const nextButton = document.getElementById('nextButton');
+  const dictButton = document.getElementById('dictButton');
 
   let words = [];
   let currentIndex = 0;
@@ -45,6 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
   flipButton.addEventListener('click', () => {
     showingWord = !showingWord;
     showWord(currentIndex);
+  });
+
+  dictButton.addEventListener('click', () => {
+    const currentWord = words[currentIndex].word;
+    const url = `https://ja.dict.naver.com/?m=mobile#/search?query=${currentWord}`;
+    window.open(url, '_blank');
   });
 
   function showWord(index) {
