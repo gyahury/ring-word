@@ -32,12 +32,20 @@ document.addEventListener('DOMContentLoaded', () => {
       currentIndex--;
       showingWord = true;
       showWord(currentIndex);
+    } else if (currentIndex == 0) {
+      currentIndex = words.length - 1;
+      showingWord = true;
+      showWord(currentIndex);
     }
   });
 
   nextButton.addEventListener('click', () => {
     if (currentIndex < words.length - 1) {
       currentIndex++;
+      showingWord = true;
+      showWord(currentIndex);
+    } else if (currentIndex == words.length - 1) {
+      currentIndex = 0;
       showingWord = true;
       showWord(currentIndex);
     }
