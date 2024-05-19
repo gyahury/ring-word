@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (showingWord) {
       wordDiv.innerHTML = `${wordData.word}`;
     } else {
-      wordDiv.innerHTML = `${wordData.furigana}<br>${wordData.meaning}`;
+      wordDiv.innerHTML = `${wordData.furigana}<div style='font-size: clamp(0.7rem, 6vw, 2rem);'>${wordData.meaning}</div>`;
     }
     curWordCountSpan.textContent = index + 1;
   }
