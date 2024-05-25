@@ -13,11 +13,12 @@
     <div class="hidden minimum-height:block minimum-width:block mt-20">
       This screen is not supported. Please increase the screen size.
     </div>
+    <canvas id="canvas" class="h-lvh w-full z-10 relative"></canvas>
     <div
       class="mx-auto minimum-height:hidden minimum-width:hidden"
       style="max-width: 640px"
     >
-      <div class="text-2xl py-5 font-light">日本語の単語</div>
+      <div class="fixed text-2xl w-5/6 left-1/2 top-12 -translate-x-1/2 -translate-y-1/2 font-light">日本語の単語</div>
       <div
         class="text-4xl font-light fixed w-5/6 left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 text-gray-700 leading-loose"
       >
@@ -47,7 +48,7 @@
         </div>
       </div>
       <div
-        class="inline-flex rounded-md shadow-sm bottom-44 fixed left-1/2 -translate-x-1/2"
+        class="inline-flex rounded-md shadow-sm bottom-44 fixed left-1/2 -translate-x-1/2 z-20"
       >
         <button
           id="dictButton"
@@ -58,7 +59,7 @@
         </button>
       </div>
       <div
-        class="inline-flex rounded-md shadow-sm bottom-20 fixed left-1/2 -translate-x-1/2"
+        class="inline-flex rounded-md shadow-sm bottom-20 fixed left-1/2 -translate-x-1/2 z-20"
         role="group"
       >
         <button
