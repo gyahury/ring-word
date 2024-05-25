@@ -36,6 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('resize', resizeCanvas);
 
+  canvas.addEventListener('mousedown', mouseDown);
+  canvas.addEventListener('mouseup', mouseUp);
+  canvas.addEventListener('mousemove', mouseMove);
+  canvas.addEventListener('mouseout', mouseOut);
+  canvas.addEventListener('touchstart', touchStart);
+  canvas.addEventListener('touchmove', touchMove);
+  canvas.addEventListener('touchend', touchEnd);
+
   prevButton.addEventListener('click', () => {
     resizeCanvas();
     if (currentIndex > 0) {
@@ -73,11 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.open(url, '_blank');
   });
 
-  canvas.addEventListener('mousedown', mouseDown);
-  canvas.addEventListener('mouseup', mouseUp);
-  canvas.addEventListener('mousemove', mouseMove);
-  canvas.addEventListener('mouseout', mouseOut);
-
   function showWord(index) {
     const wordData = words[index];
     if (showingWord) {
@@ -92,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.beginPath();
     ctx.moveTo(startX, startY);
     ctx.lineTo(curX, curY);
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1;
     ctx.strokeStyle = 'gray';
     ctx.stroke();
   }
@@ -118,6 +121,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function mouseOut() {
     drawing = false;
+  }
+
+  function touchStart(e) {
+    if (e.touches.length == 1) {
+      const touch = e.touches[0];
+      const mouseEvent = new MouseEvent('mousedown', {
+        clientX: touch.clientX,
+        clientY: touch.clientY,
+      });
+      canvas.dispatchEvent(mouseEvent);
+    }
+    e.preventDefault();
+  }
+
+  function touchMove(e) {
+    if (e.touches.length == 1) {
+      const touch = e.touches[0];
+      const mouseEvent = new MouseEvent('mousemove', {
+        clientX: touch.clientX,
+        clientY: touch.clientY,
+      });
+      canvas.dispatchEvent(mouseEvent);
+    }
+    e.preventDefault();
+  }
+
+  function touchEnd(e) {
+    const mouseEvent = new MouseEvent('mouseup', {});
+    canvas.dispatchEvent(mouseEvent);
+    e.preventDefault();
   }
 
   function resizeCanvas() {
