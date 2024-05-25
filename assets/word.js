@@ -154,7 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    var ratio = window.devicePixelRatio;
+    canvas.width = canvas.clientWidth * ratio;
+    canvas.height = canvas.clientHeight * ratio;
+    ctx.scale(ratio, ratio);
   }
 });
