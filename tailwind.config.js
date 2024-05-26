@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       screens: {
-        'minimum-height': {'raw': '(max-height: 350px)'}, 
+        'minimum-height': {'raw': '(max-height: 450px)'}, 
         'minimum-width': {'raw': '(max-width: 345px)'}, 
       },
       fontFamily: {

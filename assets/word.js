@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevButton = document.getElementById('prevButton');
   const flipButton = document.getElementById('flipButton');
   const nextButton = document.getElementById('nextButton');
-  const dictButton = document.getElementById('dictButton');
+  const searchButton = document.getElementById('searchButton');
+  const shuffleButton = document.getElementById('shuffleButton');
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -75,10 +76,19 @@ document.addEventListener('DOMContentLoaded', () => {
     showWord(currentIndex);
   });
 
-  dictButton.addEventListener('click', () => {
+  searchButton.addEventListener('click', () => {
     const currentWord = words[currentIndex].word;
     const url = `https://ja.dict.naver.com/?m=mobile#/search?query=${currentWord}`;
     window.open(url, '_blank');
+  });
+
+  shuffleButton.addEventListener('click', () => {
+    if (confirm('Would you like to shuffle?')) {
+      currentIndex = 0;
+      resizeCanvas();
+      shuffle(words);
+      showWord(currentIndex);
+    }
   });
 
   function showWord(index) {
@@ -89,6 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
       wordDiv.innerHTML = `${wordData.furigana}<div style='font-size: clamp(0.7rem, 6vw, 2rem);'>${wordData.meaning}</div>`;
     }
     curWordCountSpan.textContent = index + 1;
+  }
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
   }
 
   function draw(curX, curY) {
