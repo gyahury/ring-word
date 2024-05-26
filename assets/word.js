@@ -36,15 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch((error) => alert('error occurred : ' + error));
 
   window.addEventListener('resize', resizeCanvas);
-
-  canvas.addEventListener('mousedown', mouseDown);
-  canvas.addEventListener('mouseup', mouseUp);
-  canvas.addEventListener('mousemove', mouseMove);
-  canvas.addEventListener('mouseout', mouseOut);
-  canvas.addEventListener('touchstart', touchStart);
-  canvas.addEventListener('touchmove', touchMove);
-  canvas.addEventListener('touchend', touchEnd);
-
+  
+    canvas.addEventListener('mousedown', mouseDown);
+    canvas.addEventListener('mouseup', mouseUp);
+    canvas.addEventListener('mousemove', mouseMove);
+    canvas.addEventListener('mouseout', mouseOut);
+    canvas.addEventListener('touchstart', touchStart);
+    canvas.addEventListener('touchmove', touchMove);
+    canvas.addEventListener('touchend', touchEnd);
+  
   prevButton.addEventListener('click', () => {
     resizeCanvas();
     if (currentIndex > 0) {
@@ -113,8 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.beginPath();
     ctx.moveTo(startX, startY);
     ctx.lineTo(curX, curY);
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'gray';
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = 'RGBA(169, 169, 169, 1)';
     ctx.stroke();
   }
 
