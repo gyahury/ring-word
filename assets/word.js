@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
   shuffleButton.addEventListener('click', () => {
     if (confirm('Would you like to shuffle?')) {
       currentIndex = 0;
+      showingWord = true;
       resizeCanvas();
       shuffle(words);
       showWord(currentIndex);
