@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (const type in typeCount) {
       const wordPage = document.createElement('button');
       wordPage.className =
-        'bg-white hover:bg-gray-100 text-gray-800 py-4 px-8 border border-gray-400 rounded shadow';
+        'bg-white hover:bg-gray-100 text-gray-600 text-sm font-medium w-36 h-16 py-3 px-6 border border-gray-400 rounded-lg shadow-md whitespace-nowrap text-ellipsis overflow-hidden';
       wordPage.type = 'button';
       wordPage.textContent = `${type}`;
       wordPage.addEventListener('click', () => {
