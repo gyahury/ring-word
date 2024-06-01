@@ -14,14 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
       searchButton.addEventListener('click', function () {
         const searchText = searchInput.value.toLowerCase();
-        renderCards(
-          data.filter(
-            (item) =>
-              item.type.toLowerCase().includes(searchText) ||
-              item.word.toLowerCase().includes(searchText) ||
-              item.meaning.toLowerCase().includes(searchText) 
-          )
-        );
+        searchCards(searchText, data);
+      });
+
+      searchInput.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const searchText = searchInput.value.toLowerCase();
+          searchCards(searchText, data);
+        }
       });
     })
     .catch(() => alert('error occurred'));
@@ -55,5 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
       //pageIndex.textContent = `${typeCount[type]}`
       //cardContainer.appendChild(pageIndex);
     }
+  }
+  function searchCards(searchText, data) {
+    renderCards(
+      data.filter(
+        (item) =>
+          item.type.toLowerCase().includes(searchText) ||
+          item.word.toLowerCase().includes(searchText) ||
+          item.meaning.toLowerCase().includes(searchText)
+      )
+    );
   }
 });
