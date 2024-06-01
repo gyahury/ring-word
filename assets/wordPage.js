@@ -1,19 +1,34 @@
 import '/assets/style.css';
 
 document.addEventListener('DOMContentLoaded', () => {
-  
   const urlParams = new URLSearchParams(window.location.search);
   const nickname = urlParams.get('nickname');
+  const searchInput = document.getElementById('searchInput');
+  const searchButton = document.getElementById('searchButton');
+
   fetch(import.meta.env.VITE_API_URL + '/' + nickname + '/words.json')
     .then((response) => response.json())
     .then((json) => {
       const data = json.words;
       renderCards(data);
+
+      searchButton.addEventListener('click', function () {
+        const searchText = searchInput.value.toLowerCase();
+        renderCards(
+          data.filter(
+            (item) =>
+              item.type.toLowerCase().includes(searchText) ||
+              item.word.toLowerCase().includes(searchText) ||
+              item.meaning.toLowerCase().includes(searchText) 
+          )
+        );
+      });
     })
-    .catch((error) => alert('error occurred : ' + error));
+    .catch(() => alert('error occurred'));
 
   function renderCards(data) {
     const cardContainer = document.getElementById('cardContainer');
+    cardContainer.innerHTML = '';
     const typeCount = {};
 
     data.forEach((item) => {
@@ -31,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
       wordPage.type = 'button';
       wordPage.textContent = `${type}`;
       wordPage.addEventListener('click', () => {
-        window.location.href = '../word?nickname=' + nickname + '&page=' + type ;
+        window.location.href = '../word?nickname=' + nickname + '&page=' + type;
       });
       cardContainer.appendChild(wordPage);
       //이후 인덱스 추가
