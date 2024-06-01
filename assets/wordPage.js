@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         typeCount[item.type] = 1;
       }
     });
-
+    console.log(Object.keys(typeCount).length);
     for (const type in typeCount) {
       const wordPage = document.createElement('button');
       wordPage.className =
@@ -55,6 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
       //pageIndex.className = 'text-gray-400'
       //pageIndex.textContent = `${typeCount[type]}`
       //cardContainer.appendChild(pageIndex);
+    }
+    if (Object.keys(typeCount).length % 3 == 1) {
+      for (let i = 0; i < 2; i++) {
+        const wordPage = document.createElement('button');
+        wordPage.className = 'invisible w-36 h-0';
+        cardContainer.appendChild(wordPage);
+      }
+    } else if (Object.keys(typeCount).length % 3 == 2) {
+      const wordPage = document.createElement('button');
+      wordPage.className = 'invisible w-36 h-0';
+      cardContainer.appendChild(wordPage);
     }
   }
   function searchCards(searchText, data) {
