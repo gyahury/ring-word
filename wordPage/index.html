@@ -17,17 +17,73 @@
   </head>
   <body>
     <body class="text-center">
-      <div class="hidden minimum-height:block minimum-width:block mt-20">
+      <div class="hidden minimum-width:block mt-20">
         This screen is not supported. Please increase the screen size.
       </div>
       <div
-        class="mx-auto minimum-height:hidden minimum-width:hidden pb-10"
+        class="mx-auto minimum-width:hidden pb-10"
         style="max-width: 640px"
       >
         <div class="text-2xl py-5 font-light">日本語の単語</div>
+        <div class="flex justify-center flex-wrap gap-4 px-6 mt-8">
+          <label
+            for="searchInput"
+            class="sr-only"
+            >Search</label
+          >
+          <div class="relative w-4/6">
+            <div
+              class="absolute inset-y-0 start-0 flex items-center ps-2 pointer-events-none"
+            >
+              <svg
+                class="w-6 h-4 text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 18 20"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6.03v13m0-13c-2.819-.831-4.715-1.076-8.029-1.023A.99.99 0 0 0 3 6v11c0 .563.466 1.014 1.03 1.007 3.122-.043 5.018.212 7.97 1.023m0-13c2.819-.831 4.715-1.076 8.029-1.023A.99.99 0 0 1 21 6v11c0 .563-.466 1.014-1.03 1.007-3.122-.043-5.018.212-7.97 1.023"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="searchInput"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full ps-10 p-2.5 outline-gray-500"
+              placeholder="Search"
+              required
+            />
+          </div>
+          <button
+            id="searchButton"
+            class="p-2.5 text-sm font-medium text-white bg-gray-600 rounded-lg border border-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300"
+          >
+            <svg
+              class="w-4 h-4"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              />
+            </svg>
+            <span class="sr-only">Search</span>
+          </button>
+        </div>
         <div
           id="cardContainer"
-          class="flex flex-row justify-center flex-wrap gap-4 mt-14 px-5"
+          class="flex flex-row justify-center flex-wrap gap-4 mt-7 px-5"
         ></div>
       </div>
 
