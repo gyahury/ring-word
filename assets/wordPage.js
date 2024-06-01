@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         typeCount[item.type] = 1;
       }
     });
-    console.log(Object.keys(typeCount).length);
     for (const type in typeCount) {
       const wordPage = document.createElement('button');
       wordPage.className =
