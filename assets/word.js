@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showWord(currentIndex);
       }
       allWordCountSpan.textContent = words.length;
+      toggleMenu();
     }
   }
 
