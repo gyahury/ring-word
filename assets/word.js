@@ -13,9 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.getElementById('searchButton');
   const toggleMenuButton = document.getElementById('toggleMenuButton');
   const toggleDrawButton = document.getElementById('toggleDrawButton');
-  const controlAutoProgressButton = document.getElementById(
-    'controlAutoProgressButton'
-  );
+  const controlAutoProgressButton = document.getElementById('controlAutoProgressButton');
   const shuffleButton = document.getElementById('shuffleButton');
   const excludeWordButton = document.getElementById('excludeWordButton');
   const backButton = document.getElementById('backButton');
@@ -40,6 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
       allWordCountSpan.textContent = words.length;
       if (words.length > 0) {
         showWord(currentIndex);
+      } else {
+        alert('invalid access');
+        goBack();
       }
     })
     .catch((error) => alert('error occurred : ' + error));
@@ -94,7 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   backButton.addEventListener('click', () => {
-    if (confirm('are you sure you want to go back? unsaved changes will be lost')) {
+    if (
+      confirm('are you sure you want to go back? unsaved changes will be lost')
+    ) {
       goBack();
     }
   });
@@ -116,11 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
       )
     ) {
       words = words.filter((_, i) => i !== currentIndex);
-      if (currentIndex == words.length) {
-        currentIndex = 0;
-        showingWord = true;
-        showWord(currentIndex);
+      if (words.length == 0) {
+        alert('congratulations. there are no more words to memorize');
+        goBack();
       } else {
+        if (currentIndex >= words.length) {
+          currentIndex = 0;
+        }
         showingWord = true;
         showWord(currentIndex);
       }
