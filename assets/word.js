@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.getElementById('searchButton');
   const toggleMenuButton = document.getElementById('toggleMenuButton');
   const toggleDrawButton = document.getElementById('toggleDrawButton');
+  const controlAutoProgressButton = document.getElementById('controlAutoProgressButton');
   const shuffleButton = document.getElementById('shuffleButton');
   const backButton = document.getElementById('backButton');
   const canvas = document.getElementById('canvas');
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let drawing = false;
   let startX = 0;
   let startY = 0;
+  let autoProgressEventId;
 
   resizeCanvas();
   activateDrawEvent();
@@ -49,8 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
       resizeCanvas();
       showNext();
     } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-      showingWord = !showingWord;
-      showWord(currentIndex);
+      showFlip();
     }
   });
   prevButton.addEventListener('click', () => {
@@ -64,8 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   flipButton.addEventListener('click', () => {
-    showingWord = !showingWord;
-    showWord(currentIndex);
+    showFlip();
   });
 
   searchButton.addEventListener('click', () => {
@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   toggleMenuButton.addEventListener('click', toggleMenu);
   toggleDrawButton.addEventListener('click', toggleDrawEvent);
+  controlAutoProgressButton.addEventListener('click', controlAutoProgressEvent);
 
   shuffleButton.addEventListener('click', () => {
     if (confirm('would you like to shuffle?')) {
@@ -102,6 +103,18 @@ document.addEventListener('DOMContentLoaded', () => {
     curWordCountSpan.textContent = currentIndex + 1;
   }
 
+  function showPrev() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      showingWord = true;
+      showWord(currentIndex);
+    } else if (currentIndex == 0) {
+      currentIndex = words.length - 1;
+      showingWord = true;
+      showWord(currentIndex);
+    }
+  }
+
   function showNext() {
     if (currentIndex < words.length - 1) {
       currentIndex++;
@@ -114,16 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function showPrev() {
-    if (currentIndex > 0) {
-      currentIndex--;
-      showingWord = true;
-      showWord(currentIndex);
-    } else if (currentIndex == 0) {
-      currentIndex = words.length - 1;
-      showingWord = true;
-      showWord(currentIndex);
-    }
+  function showFlip() {
+    showingWord = !showingWord;
+    showWord(currentIndex);
   }
 
   function toggleMenu() {
@@ -231,18 +237,52 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.removeEventListener('touchmove', touchMove);
     canvas.removeEventListener('touchend', touchEnd);
   }
+
+  function activeAutoProgressEvent(ms) {
+    if (autoProgressEventId) {
+      clearInterval(autoProgressEventId);
+    }
+    autoProgressEventId = setInterval(() => {
+      showFlip();
+      setTimeout(showNext, ms / 2);
+    }, ms);
+    return autoProgressEventId;
+  }
+  function deactivateAutoProgressEvent() {
+    if (autoProgressEventId) {
+      clearInterval(autoProgressEventId);
+      autoProgressEventId = null;
+    }
+  }
+
   function toggleDrawEvent() {
-    if (toggleDrawButton.textContent === 'Draw off') {
+    if (toggleDrawButton.textContent === 'Draw Off') {
       deactivateDrawEvent();
-      toggleDrawButton.textContent = 'Draw on';
+      toggleDrawButton.textContent = 'Draw On';
     } else {
       activateDrawEvent();
-      toggleDrawButton.textContent = 'Draw off';
+      toggleDrawButton.textContent = 'Draw Off';
     }
     resizeCanvas();
     toggleMenu();
   }
 
+  function controlAutoProgressEvent() {
+    if (controlAutoProgressButton.textContent === 'Auto Off') {
+      deactivateAutoProgressEvent();
+      controlAutoProgressButton.textContent = 'Auto x1 On';
+      toggleMenu();
+    } else if (controlAutoProgressButton.textContent === 'Auto x1 On') {
+      activeAutoProgressEvent(4000);
+      controlAutoProgressButton.textContent = 'Auto x2 On';
+    } else if (controlAutoProgressButton.textContent === 'Auto x2 On') {
+      activeAutoProgressEvent(2000);
+      controlAutoProgressButton.textContent = 'Auto x4 On';
+    } else if (controlAutoProgressButton.textContent === 'Auto x4 On') {
+      activeAutoProgressEvent(1000);
+      controlAutoProgressButton.textContent = 'Auto Off';
+    }
+  }
   function goBack() {
     window.history.back();
   }
