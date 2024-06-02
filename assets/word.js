@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
       resizeCanvas();
       shuffle(words);
       showWord(currentIndex);
+      toggleMenu();
     }
   });
 
