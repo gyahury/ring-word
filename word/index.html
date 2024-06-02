@@ -23,7 +23,9 @@
       >
         日本語の単語
       </div>
-      <div class="fixed w-9 sm:w-11 h-12 sm:h-11 sm-w-12 right-1 top-12 -translate-x-1/2 -translate-y-1/2 block text-left z-10">
+      <div
+        class="fixed w-9 sm:w-11 h-12 sm:h-11 sm-w-12 right-1 top-12 -translate-x-1/2 -translate-y-1/2 block text-left z-10"
+      >
         <div>
           <button
             type="button"
@@ -32,13 +34,26 @@
             aria-expanded="false"
             aria-haspopup="true"
           >
-          <svg class="w-[30px] h-[30px] text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-width="1.4" d="M5 7h14M5 12h14M5 17h10"/>
-          </svg>
+            <svg
+              class="w-[30px] h-[30px] text-gray-600"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.4"
+                d="M5 7h14M5 12h14M5 17h10"
+              />
+            </svg>
           </button>
         </div>
         <div
-          class="absolute hidden right-2 z-10 mt-1 w-32 sm:w-44 origin-top-right rounded-md bg-white shadow-sm ring-1 ring-black ring-opacity-5 focus:outline-none"
+          class="absolute hidden right-2 z-10 mt-1 w-32 sm:w-44 origin-top-right rounded-md bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
@@ -48,26 +63,30 @@
               class="text-gray-600 block w-full text-left focus:outline-none px-4 py-3 text-xs sm:text-sm hover:bg-gray-100"
               role="menuitem"
               id="toggleDrawButton"
-              >Draw Off</button
             >
-            <button
-              class="text-gray-700 block w-full text-left focus:outline-none px-4 py-3 text-xs sm:text-sm hover:bg-gray-100"
-              role="menuitem"
-              id="shuffleButton"
-              >Shuffle</button
-            >
+              Draw Off
+            </button>
             <button
               class="text-gray-700 block w-full text-left focus:outline-none px-4 py-3 text-xs sm:text-sm hover:bg-gray-100"
               role="menuitem"
               id="controlAutoProgressButton"
-              >Auto x1 On</button
             >
+              Auto x1 On
+            </button>
+            <button
+              class="text-gray-700 block w-full text-left focus:outline-none px-4 py-3 text-xs sm:text-sm hover:bg-gray-100"
+              role="menuitem"
+              id="shuffleButton"
+            >
+              Shuffle
+            </button>
             <button
               class="text-gray-700 block w-full text-left focus:outline-none px-4 py-3 text-xs sm:text-sm hover:bg-gray-100"
               role="menuitem"
               id="backButton"
-              >Back</button
             >
+              Back
+            </button>
           </div>
         </div>
       </div>

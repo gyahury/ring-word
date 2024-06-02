@@ -264,7 +264,6 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleDrawButton.textContent = 'Draw Off';
     }
     resizeCanvas();
-    toggleMenu();
   }
 
   function controlAutoProgressEvent() {
