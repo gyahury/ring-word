@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextButton = document.getElementById('nextButton');
   const searchButton = document.getElementById('searchButton');
   const toggleMenuButton = document.getElementById('toggleMenuButton');
+  const toggleDrawButton = document.getElementById('toggleDrawButton');
   const shuffleButton = document.getElementById('shuffleButton');
   const backButton = document.getElementById('backButton');
   const canvas = document.getElementById('canvas');
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let startY = 0;
 
   resizeCanvas();
+  activateDrawEvent();
 
   fetch(import.meta.env.VITE_API_URL + '/' + nickname + '/words.json')
     .then((response) => response.json())
@@ -38,14 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch((error) => alert('error occurred : ' + error));
 
   window.addEventListener('resize', resizeCanvas);
-
-  canvas.addEventListener('mousedown', mouseDown);
-  canvas.addEventListener('mouseup', mouseUp);
-  canvas.addEventListener('mousemove', mouseMove);
-  canvas.addEventListener('mouseout', mouseOut);
-  canvas.addEventListener('touchstart', touchStart);
-  canvas.addEventListener('touchmove', touchMove);
-  canvas.addEventListener('touchend', touchEnd);
 
   prevButton.addEventListener('click', () => {
     resizeCanvas();
@@ -85,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   toggleMenuButton.addEventListener('click', toggleMenu);
+  toggleDrawButton.addEventListener('click', toggleDrawEvent);
 
   shuffleButton.addEventListener('click', () => {
     if (confirm('would you like to shuffle?')) {
@@ -114,7 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function toggleMenu() {
     const toggleMenuButton = document.getElementById('toggleMenuButton');
     const menu = toggleMenuButton.parentNode.nextElementSibling; // 메뉴 찾기
-    const isExpanded = toggleMenuButton.getAttribute('aria-expanded') === 'true';
+    const isExpanded =
+      toggleMenuButton.getAttribute('aria-expanded') === 'true';
     toggleMenuButton.setAttribute('aria-expanded', !isExpanded);
     menu.style.display = isExpanded ? 'none' : 'block';
   }
@@ -194,6 +190,37 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.width = canvas.clientWidth * ratio;
     canvas.height = canvas.clientHeight * ratio;
     ctx.scale(ratio, ratio);
+  }
+
+  function activateDrawEvent() {
+    canvas.addEventListener('mousedown', mouseDown);
+    canvas.addEventListener('mouseup', mouseUp);
+    canvas.addEventListener('mousemove', mouseMove);
+    canvas.addEventListener('mouseout', mouseOut);
+    canvas.addEventListener('touchstart', touchStart);
+    canvas.addEventListener('touchmove', touchMove);
+    canvas.addEventListener('touchend', touchEnd);
+  }
+
+  function deactivateDrawEvent() {
+    canvas.removeEventListener('mousedown', mouseDown);
+    canvas.removeEventListener('mouseup', mouseUp);
+    canvas.removeEventListener('mousemove', mouseMove);
+    canvas.removeEventListener('mouseout', mouseOut);
+    canvas.removeEventListener('touchstart', touchStart);
+    canvas.removeEventListener('touchmove', touchMove);
+    canvas.removeEventListener('touchend', touchEnd);
+  }
+  function toggleDrawEvent() {
+    if (toggleDrawButton.textContent === 'Draw off') {
+      deactivateDrawEvent();
+      toggleDrawButton.textContent = 'Draw on';
+    } else {
+      activateDrawEvent();
+      toggleDrawButton.textContent = 'Draw off';
+    }
+    resizeCanvas();
+    toggleMenu();
   }
 
   function goBack() {
