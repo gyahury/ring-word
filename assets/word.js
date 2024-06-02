@@ -13,8 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.getElementById('searchButton');
   const toggleMenuButton = document.getElementById('toggleMenuButton');
   const toggleDrawButton = document.getElementById('toggleDrawButton');
-  const controlAutoProgressButton = document.getElementById('controlAutoProgressButton');
+  const controlAutoProgressButton = document.getElementById(
+    'controlAutoProgressButton'
+  );
   const shuffleButton = document.getElementById('shuffleButton');
+  const excludeWordButton = document.getElementById('excludeWordButton');
   const backButton = document.getElementById('backButton');
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
@@ -77,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
   toggleMenuButton.addEventListener('click', toggleMenu);
   toggleDrawButton.addEventListener('click', toggleDrawEvent);
   controlAutoProgressButton.addEventListener('click', controlAutoProgressEvent);
+  excludeWordButton.addEventListener('click', excludeWord);
 
   shuffleButton.addEventListener('click', () => {
     if (confirm('would you like to shuffle?')) {
@@ -90,7 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   backButton.addEventListener('click', () => {
-    goBack();
+    if (confirm('are you sure you want to go back? unsaved changes will be lost')) {
+      goBack();
+    }
   });
 
   function showWord(currentIndex) {
@@ -101,6 +107,25 @@ document.addEventListener('DOMContentLoaded', () => {
       wordDiv.innerHTML = `${wordData.furigana}<div style='font-size: clamp(0.7rem, 6vw, 2rem);'>${wordData.meaning}</div>`;
     }
     curWordCountSpan.textContent = currentIndex + 1;
+  }
+
+  function excludeWord() {
+    if (
+      confirm(
+        'would you like to exclude this word? it will be temporarily excluded'
+      )
+    ) {
+      words = words.filter((_, i) => i !== currentIndex);
+      if (currentIndex == words.length) {
+        currentIndex = 0;
+        showingWord = true;
+        showWord(currentIndex);
+      } else {
+        showingWord = true;
+        showWord(currentIndex);
+      }
+      allWordCountSpan.textContent = words.length;
+    }
   }
 
   function showPrev() {
@@ -248,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, ms);
     return autoProgressEventId;
   }
+
   function deactivateAutoProgressEvent() {
     if (autoProgressEventId) {
       clearInterval(autoProgressEventId);
