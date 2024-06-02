@@ -44,26 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', function (event) {
     if (event.key === 'ArrowLeft') {
       resizeCanvas();
-      if (currentIndex > 0) {
-        currentIndex--;
-        showingWord = true;
-        showWord(currentIndex);
-      } else if (currentIndex == 0) {
-        currentIndex = words.length - 1;
-        showingWord = true;
-        showWord(currentIndex);
-      }
+      showPrev();
     } else if (event.key === 'ArrowRight') {
       resizeCanvas();
-      if (currentIndex < words.length - 1) {
-        currentIndex++;
-        showingWord = true;
-        showWord(currentIndex);
-      } else if (currentIndex == words.length - 1) {
-        currentIndex = 0;
-        showingWord = true;
-        showWord(currentIndex);
-      }
+      showNext();
     } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       showingWord = !showingWord;
       showWord(currentIndex);
@@ -71,28 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   prevButton.addEventListener('click', () => {
     resizeCanvas();
-    if (currentIndex > 0) {
-      currentIndex--;
-      showingWord = true;
-      showWord(currentIndex);
-    } else if (currentIndex == 0) {
-      currentIndex = words.length - 1;
-      showingWord = true;
-      showWord(currentIndex);
-    }
+    showPrev();
   });
 
   nextButton.addEventListener('click', () => {
     resizeCanvas();
-    if (currentIndex < words.length - 1) {
-      currentIndex++;
-      showingWord = true;
-      showWord(currentIndex);
-    } else if (currentIndex == words.length - 1) {
-      currentIndex = 0;
-      showingWord = true;
-      showWord(currentIndex);
-    }
+    showNext();
   });
 
   flipButton.addEventListener('click', () => {
@@ -124,14 +92,38 @@ document.addEventListener('DOMContentLoaded', () => {
     goBack();
   });
 
-  function showWord(index) {
-    const wordData = words[index];
+  function showWord(currentIndex) {
+    const wordData = words[currentIndex];
     if (showingWord) {
       wordDiv.innerHTML = `${wordData.word}`;
     } else {
       wordDiv.innerHTML = `${wordData.furigana}<div style='font-size: clamp(0.7rem, 6vw, 2rem);'>${wordData.meaning}</div>`;
     }
-    curWordCountSpan.textContent = index + 1;
+    curWordCountSpan.textContent = currentIndex + 1;
+  }
+
+  function showNext() {
+    if (currentIndex < words.length - 1) {
+      currentIndex++;
+      showingWord = true;
+      showWord(currentIndex);
+    } else if (currentIndex == words.length - 1) {
+      currentIndex = 0;
+      showingWord = true;
+      showWord(currentIndex);
+    }
+  }
+
+  function showPrev() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      showingWord = true;
+      showWord(currentIndex);
+    } else if (currentIndex == 0) {
+      currentIndex = words.length - 1;
+      showingWord = true;
+      showWord(currentIndex);
+    }
   }
 
   function toggleMenu() {
