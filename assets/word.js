@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (
       confirm('are you sure you want to go back? unsaved changes will be lost')
     ) {
-      goBack();
+      goWordPage();
     }
   });
 
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
       words = words.filter((_, i) => i !== currentIndex);
       if (words.length == 0) {
         alert('congratulations. there are no more words to memorize');
-        goBack();
+        goWordPage();
       } else {
         if (currentIndex >= words.length) {
           currentIndex = 0;
@@ -315,5 +315,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function goBack() {
     window.history.back();
+  }
+  function goWordPage() {
+    location.href = '/ring-word/wordPage?nickname=' + nickname;
   }
 });
