@@ -270,7 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (controlAutoProgressButton.textContent === 'Auto Off') {
       deactivateAutoProgressEvent();
       controlAutoProgressButton.textContent = 'Auto x1 On';
-      toggleMenu();
     } else if (controlAutoProgressButton.textContent === 'Auto x1 On') {
       activeAutoProgressEvent(4000);
       controlAutoProgressButton.textContent = 'Auto x2 On';
