@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const flipButton = document.getElementById('flipButton');
   const nextButton = document.getElementById('nextButton');
   const searchButton = document.getElementById('searchButton');
-  const menuButton = document.getElementById('menuButton');
+  const toggleMenuButton = document.getElementById('toggleMenuButton');
   const shuffleButton = document.getElementById('shuffleButton');
   const backButton = document.getElementById('backButton');
   const canvas = document.getElementById('canvas');
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.open(url, '_blank');
   });
 
-  menuButton.addEventListener('click', toggleMenu);
+  toggleMenuButton.addEventListener('click', toggleMenu);
 
   shuffleButton.addEventListener('click', () => {
     if (confirm('would you like to shuffle?')) {
@@ -112,10 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function toggleMenu() {
-    const menuButton = document.getElementById('menuButton');
-    const menu = menuButton.parentNode.nextElementSibling; // 메뉴 찾기
-    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-    menuButton.setAttribute('aria-expanded', !isExpanded);
+    const toggleMenuButton = document.getElementById('toggleMenuButton');
+    const menu = toggleMenuButton.parentNode.nextElementSibling; // 메뉴 찾기
+    const isExpanded = toggleMenuButton.getAttribute('aria-expanded') === 'true';
+    toggleMenuButton.setAttribute('aria-expanded', !isExpanded);
     menu.style.display = isExpanded ? 'none' : 'block';
   }
 
