@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const flipButton = document.getElementById('flipButton');
   const nextButton = document.getElementById('nextButton');
   const searchButton = document.getElementById('searchButton');
+  const menuButton = document.getElementById('menuButton');
   const shuffleButton = document.getElementById('shuffleButton');
+  const backButton = document.getElementById('backButton');
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -36,15 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch((error) => alert('error occurred : ' + error));
 
   window.addEventListener('resize', resizeCanvas);
-  
-    canvas.addEventListener('mousedown', mouseDown);
-    canvas.addEventListener('mouseup', mouseUp);
-    canvas.addEventListener('mousemove', mouseMove);
-    canvas.addEventListener('mouseout', mouseOut);
-    canvas.addEventListener('touchstart', touchStart);
-    canvas.addEventListener('touchmove', touchMove);
-    canvas.addEventListener('touchend', touchEnd);
-  
+
+  canvas.addEventListener('mousedown', mouseDown);
+  canvas.addEventListener('mouseup', mouseUp);
+  canvas.addEventListener('mousemove', mouseMove);
+  canvas.addEventListener('mouseout', mouseOut);
+  canvas.addEventListener('touchstart', touchStart);
+  canvas.addEventListener('touchmove', touchMove);
+  canvas.addEventListener('touchend', touchEnd);
+
   prevButton.addEventListener('click', () => {
     resizeCanvas();
     if (currentIndex > 0) {
@@ -82,14 +84,20 @@ document.addEventListener('DOMContentLoaded', () => {
     window.open(url, '_blank');
   });
 
+  menuButton.addEventListener('click', toggleMenu);
+
   shuffleButton.addEventListener('click', () => {
-    if (confirm('Would you like to shuffle?')) {
+    if (confirm('would you like to shuffle?')) {
       currentIndex = 0;
       showingWord = true;
       resizeCanvas();
       shuffle(words);
       showWord(currentIndex);
     }
+  });
+
+  backButton.addEventListener('click', () => {
+    goBack();
   });
 
   function showWord(index) {
@@ -100,6 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
       wordDiv.innerHTML = `${wordData.furigana}<div style='font-size: clamp(0.7rem, 6vw, 2rem);'>${wordData.meaning}</div>`;
     }
     curWordCountSpan.textContent = index + 1;
+  }
+
+  function toggleMenu() {
+    const menuButton = document.getElementById('menuButton');
+    const menu = menuButton.parentNode.nextElementSibling; // 메뉴 찾기
+    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+    menuButton.setAttribute('aria-expanded', !isExpanded);
+    menu.style.display = isExpanded ? 'none' : 'block';
   }
 
   function shuffle(array) {
@@ -177,5 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.width = canvas.clientWidth * ratio;
     canvas.height = canvas.clientHeight * ratio;
     ctx.scale(ratio, ratio);
+  }
+
+  function goBack() {
+    window.history.back();
   }
 });
