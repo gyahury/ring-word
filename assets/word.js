@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((response) => response.json())
     .then((json) => {
       let lastKey = localStorage.getItem('lastKey');
-      words = lastKey ? addCheckedWord(words) : words;
+      lastKey ? addCheckedWord(json.words) : words;
       words = json.words.filter((word) => word.type === page);
       allWordCountSpan.textContent = words.length;
       if (words.length > 0) {
@@ -111,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showWord(currentIndex) {
     const wordData = words[currentIndex];
-    console.log(wordData);
     if (wordData.type == 'Checked') {
       changeToUnchecked();
     }
@@ -159,8 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const newKey = lastKey + 1;
     const checkedWord = JSON.parse(JSON.stringify(words[currentIndex]));
     checkedWord.type = 'Checked';
-    const isExists = checkWordExists(checkedWord, lastKey);
     checkedWord.key = newKey;
+    const isExists = checkWordExists(checkedWord, lastKey);
+
     if (isExists) {
       if (confirm('this word already exists. would you like to check it?')) {
         localStorage.setItem(newKey, JSON.stringify(checkedWord));
@@ -209,12 +209,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return data;
   }
 
-  function checkWordExists(data, lastKey) {
-    const dataString = JSON.stringify(data);
-
+  function checkWordExists(checkedWord, lastKey) {
     for (let i = 0; i < lastKey + 1; i++) {
-      const value = localStorage.getItem(i);
-      if (value === dataString) {
+      const storageValue = JSON.parse(localStorage.getItem(i));
+      if (storageValue && storageValue.word === checkedWord.word) {
         return true;
       }
     }
