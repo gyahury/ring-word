@@ -1,11 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap"
       rel="stylesheet"
@@ -17,26 +14,19 @@
   </head>
   <body>
     <body class="text-center">
-      <div class="hidden minimum-width:block mt-20">
+      <div class="mt-20 hidden minimum-width:block">
         This screen is not supported. Please increase the screen size.
       </div>
-      <div
-        class="mx-auto minimum-width:hidden pb-5"
-        style="max-width: 640px"
-      >
-        <div class="text-2xl py-5 font-light">日本語の単語</div>
-        <div class="flex justify-center flex-wrap gap-4 px-6 mt-8">
-          <label
-            for="searchInput"
-            class="sr-only"
-            >Search</label
-          >
+      <div class="mx-auto pb-5 minimum-width:hidden" style="max-width: 640px">
+        <div class="py-5 text-2xl font-light">日本語の単語</div>
+        <div class="mt-8 flex flex-wrap justify-center gap-4 px-6">
+          <label for="searchInput" class="sr-only">Search</label>
           <div class="relative w-4/6">
             <div
-              class="absolute inset-y-0 start-0 flex items-center ps-2 pointer-events-none"
+              class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-2"
             >
               <svg
-                class="w-6 h-4 text-gray-400"
+                class="h-4 w-6 text-gray-400"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -54,17 +44,17 @@
             <input
               type="text"
               id="searchInput"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full ps-10 p-2.5 outline-gray-500"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 outline-gray-500"
               placeholder="Search"
               required
             />
           </div>
           <button
             id="searchButton"
-            class="p-2.5 text-sm font-medium text-white bg-gray-600 rounded-lg border border-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300"
+            class="rounded-lg border border-gray-600 bg-gray-600 p-2.5 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300"
           >
             <svg
-              class="w-4 h-4"
+              class="h-4 w-4"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -83,7 +73,7 @@
         </div>
         <div
           id="cardContainer"
-          class="flex flex-row justify-center flex-wrap gap-4 mt-7 px-5"
+          class="mt-7 flex flex-row flex-wrap justify-center gap-4 px-5"
         ></div>
       </div>
 
