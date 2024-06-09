@@ -53,14 +53,16 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', resizeCanvas);
 
   document.addEventListener('keydown', function (event) {
-    if (event.key === 'ArrowLeft') {
+    if (event.key === 'ArrowLeft' || event.key === 'q') {
       resizeCanvas();
       showPrev();
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight' || event.key === 'w') {
       resizeCanvas();
       showNext();
     } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       showFlip();
+    } else if (event.key === 'e') {
+      excludeWord();
     }
   });
 
