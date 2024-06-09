@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggleMenuButton = document.getElementById('toggleMenuButton');
   const toggleDrawButton = document.getElementById('toggleDrawButton');
   const controlAutoProgressButton = document.getElementById(
-    'controlAutoProgressButton'
+    'controlAutoProgressButton',
   );
   const shuffleButton = document.getElementById('shuffleButton');
   const excludeWordButton = document.getElementById('excludeWordButton');
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function excludeWord() {
     if (
       confirm(
-        'would you like to exclude this word? it will be temporarily excluded'
+        'would you like to exclude this word? it will be temporarily excluded',
       )
     ) {
       words = words.filter((_, i) => i !== currentIndex);
@@ -177,11 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function uncheckWord() {
-    if (
-      confirm(
-        'would you like to uncheck this word?'
-      )
-    ) {
+    if (confirm('would you like to uncheck this word?')) {
       localStorage.removeItem(words[currentIndex].key);
       words = words.filter((_, i) => i !== currentIndex);
       if (words.length == 0) {

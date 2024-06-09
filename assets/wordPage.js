@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     })
-    .catch((e) => alert(e,'error occurred'));
+    .catch((e) => alert(e, 'error occurred'));
 
   function renderCards(data) {
     const cardContainer = document.getElementById('cardContainer');
@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
         (item) =>
           item.type.toLowerCase().includes(searchText) ||
           item.word.toLowerCase().includes(searchText) ||
-          item.meaning.toLowerCase().includes(searchText)
-      )
+          item.meaning.toLowerCase().includes(searchText),
+      ),
     );
   }
 
