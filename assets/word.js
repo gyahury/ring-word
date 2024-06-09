@@ -303,20 +303,26 @@ document.addEventListener('DOMContentLoaded', () => {
       deactivateAutoProgressEvent();
       controlAutoProgressButton.textContent = 'Auto x1 On';
     } else if (controlAutoProgressButton.textContent === 'Auto x1 On') {
-      activeAutoProgressEvent(4000);
+      activeAutoProgressEvent(8000);
       controlAutoProgressButton.textContent = 'Auto x2 On';
     } else if (controlAutoProgressButton.textContent === 'Auto x2 On') {
-      activeAutoProgressEvent(2000);
+      activeAutoProgressEvent(4000);
       controlAutoProgressButton.textContent = 'Auto x4 On';
     } else if (controlAutoProgressButton.textContent === 'Auto x4 On') {
+      activeAutoProgressEvent(2000);
+      controlAutoProgressButton.textContent = 'Auto x8 On';
+    } else if (controlAutoProgressButton.textContent === 'Auto x8 On') {
       activeAutoProgressEvent(1000);
       controlAutoProgressButton.textContent = 'Auto Off';
     }
   }
+
   function goBack() {
     window.history.back();
   }
+
   function goWordPage() {
     location.href = '/ring-word/wordPage?nickname=' + nickname;
   }
+  
 });
