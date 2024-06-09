@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,21 +10,21 @@
     <title>ring-word</title>
   </head>
   <body class="text-center">
-    <div class="hidden minimum-height:block minimum-width:block mt-20">
+    <div class="mt-20 hidden minimum-height:block minimum-width:block">
       This screen is not supported. Please increase the screen size.
     </div>
-    <canvas id="canvas" class="h-lvh w-full z-10 relative"></canvas>
+    <canvas id="canvas" class="relative z-10 h-lvh w-full"></canvas>
     <div
       class="mx-auto minimum-height:hidden minimum-width:hidden"
       style="max-width: 640px"
     >
       <div
-        class="fixed text-2xl w-5/6 left-1/2 top-12 -translate-x-1/2 -translate-y-1/2 font-light"
+        class="fixed left-1/2 top-12 w-5/6 -translate-x-1/2 -translate-y-1/2 text-2xl font-light"
       >
         日本語の単語
       </div>
       <div
-        class="fixed w-9 sm:w-11 h-12 sm:h-11 sm-w-12 right-1 top-12 -translate-x-1/2 -translate-y-1/2 block text-left z-10"
+        class="sm-w-12 fixed right-1 top-12 z-10 block h-12 w-9 -translate-x-1/2 -translate-y-1/2 text-left sm:h-11 sm:w-11"
       >
         <div>
           <button
@@ -35,7 +35,7 @@
             aria-haspopup="true"
           >
             <svg
-              class="w-[30px] h-[30px] text-gray-600"
+              class="h-[30px] w-[30px] text-gray-600"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -53,34 +53,39 @@
           </button>
         </div>
         <div
-          class="absolute hidden right-2 z-10 mt-1 w-32 sm:w-44 origin-top-right rounded-md bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none"
+          class="absolute right-2 z-10 mt-1 hidden w-32 origin-top-right rounded-md bg-white shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-44"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
         >
           <div class="py-1" role="none">
             <button
-              class="text-gray-600 block w-full text-left focus:outline-none px-4 py-3 text-xs sm:text-sm hover:bg-gray-100"
+              class="block w-full px-4 py-3 text-left text-xs text-gray-600 hover:bg-gray-100 focus:outline-none sm:text-sm"
               role="menuitem"
               id="toggleDrawButton"
             >Draw Off</button>
             <button
-              class="text-gray-700 block w-full text-left focus:outline-none px-4 py-3 text-xs sm:text-sm hover:bg-gray-100"
+              class="block w-full px-4 py-3 text-left text-xs text-gray-700 hover:bg-gray-100 focus:outline-none sm:text-sm"
               role="menuitem"
               id="controlAutoProgressButton"
             >Auto x1 On</button>
             <button
-              class="text-gray-700 block w-full text-left focus:outline-none px-4 py-3 text-xs sm:text-sm hover:bg-gray-100"
+              class="block w-full px-4 py-3 text-left text-xs text-gray-700 hover:bg-gray-100 focus:outline-none sm:text-sm"
               role="menuitem"
               id="shuffleButton"
             >Shuffle</button>
             <button
-              class="text-gray-700 block w-full text-left focus:outline-none px-4 py-3 text-xs sm:text-sm hover:bg-gray-100"
+              class="block w-full px-4 py-3 text-left text-xs text-gray-700 hover:bg-gray-100 focus:outline-none sm:text-sm"
               role="menuitem"
               id="excludeWordButton"
             >Exclude Word</button>
             <button
-              class="text-gray-700 block w-full text-left focus:outline-none px-4 py-3 text-xs sm:text-sm hover:bg-gray-100"
+              class="block w-full px-4 py-3 text-left text-xs text-gray-700 hover:bg-gray-100 focus:outline-none sm:text-sm"
+              role="menuitem"
+              id="checkWordButton"
+            >Check Word</button>
+            <button
+              class="block w-full px-4 py-3 text-left text-xs text-gray-700 hover:bg-gray-100 focus:outline-none sm:text-sm"
               role="menuitem"
               id="backButton"
             >Back</button>
@@ -88,19 +93,19 @@
         </div>
       </div>
       <div
-        class="text-4xl font-medium fixed w-5/6 left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 text-gray-600 leading-loose"
+        class="fixed left-1/2 top-1/3 w-5/6 -translate-x-1/2 -translate-y-1/2 text-4xl font-medium leading-loose text-gray-600"
       >
         <div
           id="word"
           style="
             font-size: clamp(0.7rem, 10vw, 4rem);
-            font-family: 'Noto Serif JP', 'Noto Sans KR';
+            font-family: 'Noto Serif JP', 'Noto Sans KR'
           "
         >
           <div role="status">
             <svg
               aria-hidden="true"
-              class="inline w-8 h-8 text-gray-200 animate-spin fill-gray-600"
+              class="inline h-8 w-8 animate-spin fill-gray-600 text-gray-200"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -117,43 +122,43 @@
             <span class="sr-only">Loading...</span>
           </div>
         </div>
-        <div class="text-lg text-gray-400 mt-4">
+        <div class="mt-4 text-lg text-gray-400">
           <span id="curWordCount">0</span> / <span id="allWordCount">0</span>
         </div>
       </div>
       <div
-        class="inline-flex rounded-md shadow-sm bottom-40 fixed left-1/2 -translate-x-1/2 gap-3 z-20"
+        class="fixed bottom-40 left-1/2 z-20 inline-flex -translate-x-1/2 gap-3 rounded-md shadow-sm"
       >
         <button
           id="searchButton"
           type="button"
-          class="px-5 py-2 text-sm font-medium text-gray-800 bg-transparent border rounded border-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white"
+          class="rounded border border-gray-900 bg-transparent px-5 py-2 text-sm font-medium text-gray-800 hover:bg-gray-900 hover:text-white focus:z-10 focus:bg-gray-900 focus:text-white focus:ring-2 focus:ring-gray-500"
         >
           Search
         </button>
       </div>
       <div
-        class="inline-flex rounded-md shadow-sm bottom-16 fixed left-1/2 -translate-x-1/2 z-20"
+        class="fixed bottom-16 left-1/2 z-20 inline-flex -translate-x-1/2 rounded-md shadow-sm"
         role="group"
       >
         <button
           type="button"
           id="prevButton"
-          class="px-8 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-s-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white"
+          class="rounded-s-lg border border-gray-900 bg-transparent px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:bg-gray-900 focus:text-white focus:ring-2 focus:ring-gray-500"
         >
           Prev
         </button>
         <button
           type="button"
           id="flipButton"
-          class="px-8 py-2 text-sm font-medium text-gray-900 bg-transparent border-t border-b border-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white"
+          class="border-b border-t border-gray-900 bg-transparent px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:bg-gray-900 focus:text-white focus:ring-2 focus:ring-gray-500"
         >
           Flip
         </button>
         <button
           type="button"
           id="nextButton"
-          class="px-8 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-e-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white"
+          class="rounded-e-lg border border-gray-900 bg-transparent px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:bg-gray-900 focus:text-white focus:ring-2 focus:ring-gray-500"
         >
           Next
         </button>

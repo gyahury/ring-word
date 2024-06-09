@@ -13,9 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.getElementById('searchButton');
   const toggleMenuButton = document.getElementById('toggleMenuButton');
   const toggleDrawButton = document.getElementById('toggleDrawButton');
-  const controlAutoProgressButton = document.getElementById('controlAutoProgressButton');
+  const controlAutoProgressButton = document.getElementById(
+    'controlAutoProgressButton',
+  );
   const shuffleButton = document.getElementById('shuffleButton');
   const excludeWordButton = document.getElementById('excludeWordButton');
+  const checkWordButton = document.getElementById('checkWordButton');
   const backButton = document.getElementById('backButton');
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
@@ -34,6 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch(import.meta.env.VITE_API_URL + '/' + nickname + '/words.json')
     .then((response) => response.json())
     .then((json) => {
+      let lastKey = localStorage.getItem('lastKey');
+      lastKey ? addCheckedWord(json.words) : words;
       words = json.words.filter((word) => word.type === page);
       allWordCountSpan.textContent = words.length;
       if (words.length > 0) {
@@ -58,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showFlip();
     }
   });
+
   prevButton.addEventListener('click', () => {
     resizeCanvas();
     showPrev();
@@ -82,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
   toggleDrawButton.addEventListener('click', toggleDrawEvent);
   controlAutoProgressButton.addEventListener('click', controlAutoProgressEvent);
   excludeWordButton.addEventListener('click', excludeWord);
+  checkWordButton.addEventListener('click', checkWord);
 
   shuffleButton.addEventListener('click', () => {
     if (confirm('would you like to shuffle?')) {
@@ -104,6 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showWord(currentIndex) {
     const wordData = words[currentIndex];
+    if (wordData.type == 'Checked') {
+      changeToUnchecked();
+    }
     if (showingWord) {
       wordDiv.innerHTML = `${wordData.word}`;
     } else {
@@ -112,10 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
     curWordCountSpan.textContent = currentIndex + 1;
   }
 
+  function changeToUnchecked() {
+    checkWordButton.id = 'uncheckWordButton';
+    checkWordButton.textContent = 'Uncheck Word';
+
+    checkWordButton.removeEventListener('click', checkWord);
+    const uncheckWordButton = document.getElementById('uncheckWordButton');
+    uncheckWordButton.addEventListener('click', uncheckWord);
+  }
+
   function excludeWord() {
     if (
       confirm(
-        'would you like to exclude this word? it will be temporarily excluded'
+        'would you like to exclude this word? it will be temporarily excluded',
       )
     ) {
       words = words.filter((_, i) => i !== currentIndex);
@@ -130,8 +149,70 @@ document.addEventListener('DOMContentLoaded', () => {
         showWord(currentIndex);
       }
       allWordCountSpan.textContent = words.length;
-      toggleMenu();
     }
+  }
+
+  function checkWord() {
+    let lastKey = localStorage.getItem('lastKey');
+    lastKey = lastKey ? parseInt(lastKey) : -1;
+    const newKey = lastKey + 1;
+    const checkedWord = JSON.parse(JSON.stringify(words[currentIndex]));
+    checkedWord.type = 'Checked';
+    checkedWord.key = newKey;
+    const isExists = checkWordExists(checkedWord, lastKey);
+
+    if (isExists) {
+      if (confirm('this word already exists. would you like to check it?')) {
+        localStorage.setItem(newKey, JSON.stringify(checkedWord));
+        localStorage.setItem('lastKey', newKey.toString());
+        alert('successfully added');
+      }
+    } else {
+      if (confirm('would you like to add it?')) {
+        localStorage.setItem(newKey, JSON.stringify(checkedWord));
+        localStorage.setItem('lastKey', newKey.toString());
+        alert('successfully added');
+      }
+    }
+  }
+
+  function uncheckWord() {
+    if (confirm('would you like to uncheck this word?')) {
+      localStorage.removeItem(words[currentIndex].key);
+      words = words.filter((_, i) => i !== currentIndex);
+      if (words.length == 0) {
+        alert('congratulations. there are no more words to memorize');
+        goWordPage();
+      } else {
+        if (currentIndex >= words.length) {
+          currentIndex = 0;
+        }
+        showingWord = true;
+        showWord(currentIndex);
+      }
+      allWordCountSpan.textContent = words.length;
+    }
+  }
+
+  function addCheckedWord(data) {
+    let lastKey = localStorage.getItem('lastKey');
+    for (let i = 0; i < lastKey + 1; i++) {
+      const value = JSON.parse(localStorage.getItem(i));
+      if (value) {
+        data.push(value);
+      }
+    }
+    return data;
+  }
+
+  function checkWordExists(checkedWord, lastKey) {
+    for (let i = 0; i < lastKey + 1; i++) {
+      const storageValue = JSON.parse(localStorage.getItem(i));
+      if (storageValue && storageValue.word === checkedWord.word) {
+        return true;
+      }
+    }
+    return false;
   }
 
   function showPrev() {
@@ -324,5 +405,4 @@ document.addEventListener('DOMContentLoaded', () => {
   function goWordPage() {
     location.href = '/ring-word/wordPage?nickname=' + nickname;
   }
-  
 });

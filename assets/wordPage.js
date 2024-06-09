@@ -5,11 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const nickname = urlParams.get('nickname');
   const searchInput = document.getElementById('searchInput');
   const searchButton = document.getElementById('searchButton');
+  const lastKey = localStorage.getItem('lastKey');
 
   fetch(import.meta.env.VITE_API_URL + '/' + nickname + '/words.json')
     .then((response) => response.json())
     .then((json) => {
-      const data = json.words;
+      let data = json.words;
+      data = lastKey ? addCheckedWord(data) : data;
       renderCards(data);
 
       searchButton.addEventListener('click', function () {
@@ -25,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     })
-    .catch(() => alert('error occurred'));
+    .catch((e) => alert(e, 'error occurred'));
 
   function renderCards(data) {
     const cardContainer = document.getElementById('cardContainer');
@@ -49,11 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '../word?nickname=' + nickname + '&page=' + type;
       });
       cardContainer.appendChild(wordPage);
-      //이후 인덱스 추가
-      //const pageIndex = document.createElement('span');
-      //pageIndex.className = 'text-gray-400'
-      //pageIndex.textContent = `${typeCount[type]}`
-      //cardContainer.appendChild(pageIndex);
     }
     if (Object.keys(typeCount).length % 3 == 1) {
       for (let i = 0; i < 2; i++) {
@@ -67,14 +64,25 @@ document.addEventListener('DOMContentLoaded', () => {
       cardContainer.appendChild(wordPage);
     }
   }
+
   function searchCards(searchText, data) {
     renderCards(
       data.filter(
         (item) =>
           item.type.toLowerCase().includes(searchText) ||
           item.word.toLowerCase().includes(searchText) ||
-          item.meaning.toLowerCase().includes(searchText)
-      )
+          item.meaning.toLowerCase().includes(searchText),
+      ),
     );
+  }
+
+  function addCheckedWord(data) {
+    for (let i = 0; i < lastKey + 1; i++) {
+      const value = JSON.parse(localStorage.getItem(i));
+      if (value) {
+        data.push(value);
+      }
+    }
+    return data;
   }
 });

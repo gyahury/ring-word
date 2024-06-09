@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
         .then((response) => {
           if (response.ok) {
-            location.href = './wordPage?nickname='+inputValue;
+            location.href = './wordPage?nickname=' + inputValue;
           } else {
             alert('file does not exist');
           }
