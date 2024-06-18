@@ -382,22 +382,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function controlAutoProgressEvent() {
-    if (controlAutoProgressButton.textContent === 'Auto Off') {
-      deactivateAutoProgressEvent();
-      controlAutoProgressButton.textContent = 'Auto x1 On';
-    } else if (controlAutoProgressButton.textContent === 'Auto x1 On') {
-      activeAutoProgressEvent(8000);
-      controlAutoProgressButton.textContent = 'Auto x2 On';
-    } else if (controlAutoProgressButton.textContent === 'Auto x2 On') {
-      activeAutoProgressEvent(4000);
-      controlAutoProgressButton.textContent = 'Auto x4 On';
-    } else if (controlAutoProgressButton.textContent === 'Auto x4 On') {
-      activeAutoProgressEvent(2000);
-      controlAutoProgressButton.textContent = 'Auto x8 On';
-    } else if (controlAutoProgressButton.textContent === 'Auto x8 On') {
-      activeAutoProgressEvent(1000);
-      controlAutoProgressButton.textContent = 'Auto Off';
-    }
+    const states = [
+      { text: 'Auto Off', action: deactivateAutoProgressEvent },
+      { text: 'Auto x1 On', action: () => activeAutoProgressEvent(8000) },
+      { text: 'Auto x2 On', action: () => activeAutoProgressEvent(4000) },
+      { text: 'Auto x4 On', action: () => activeAutoProgressEvent(2000) },
+      { text: 'Auto x8 On', action: () => activeAutoProgressEvent(1000) },
+    ];
+    let currentStateIndex = states.findIndex(
+      (state) => state.text === controlAutoProgressButton.textContent,
+    );
+    states[currentStateIndex].action();
+    currentStateIndex = (currentStateIndex + 1) % states.length;
+    controlAutoProgressButton.textContent = states[currentStateIndex].text;
   }
 
   function goBack() {
