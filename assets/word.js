@@ -167,13 +167,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (confirm('this word already exists. would you like to check it?')) {
         localStorage.setItem(newKey, JSON.stringify(checkedWord));
         localStorage.setItem('lastKey', newKey.toString());
-        alert('successfully added');
+        alert('successfully checked');
       }
     } else {
-      if (confirm('would you like to add it?')) {
+      if (confirm('would you like to check it? you can check it in word notes')) {
         localStorage.setItem(newKey, JSON.stringify(checkedWord));
         localStorage.setItem('lastKey', newKey.toString());
-        alert('successfully added');
+        alert('successfully checked');
       }
     }
   }
