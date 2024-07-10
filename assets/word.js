@@ -13,9 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.getElementById('searchButton');
   const toggleMenuButton = document.getElementById('toggleMenuButton');
   const toggleDrawButton = document.getElementById('toggleDrawButton');
-  const controlAutoProgressButton = document.getElementById(
-    'controlAutoProgressButton',
-  );
+  const controlAutoProgressButton = document.getElementById('controlAutoProgressButton');
   const shuffleButton = document.getElementById('shuffleButton');
   const excludeWordButton = document.getElementById('excludeWordButton');
   const checkWordButton = document.getElementById('checkWordButton');
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   resizeCanvas();
   activateDrawEvent();
 
-  fetch(import.meta.env.VITE_API_URL + '/' + nickname + '/words.json')
+  fetch(`${import.meta.env.VITE_API_URL}/${nickname}/words.json`)
     .then((response) => response.json())
     .then((json) => {
       let lastKey = localStorage.getItem('lastKey');
@@ -104,9 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   backButton.addEventListener('click', () => {
-    if (
-      confirm('are you sure you want to go back? unsaved changes will be lost')
-    ) {
+    if (confirm('are you sure you want to go back? unsaved changes will be lost')) {
       goWordPage();
     }
   });
@@ -134,11 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function excludeWord() {
-    if (
-      confirm(
-        'would you like to exclude this word? it will be temporarily excluded',
-      )
-    ) {
+    if (confirm('would you like to exclude this word? it will be temporarily excluded')) {
       words = words.filter((_, i) => i !== currentIndex);
       if (words.length == 0) {
         alert('congratulations. there are no more words to memorize');
@@ -249,8 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function toggleMenu() {
     const toggleMenuButton = document.getElementById('toggleMenuButton');
     const menu = toggleMenuButton.parentNode.nextElementSibling; // 메뉴 찾기
-    const isExpanded =
-      toggleMenuButton.getAttribute('aria-expanded') === 'true';
+    const isExpanded = toggleMenuButton.getAttribute('aria-expanded') === 'true';
     toggleMenuButton.setAttribute('aria-expanded', !isExpanded);
     menu.style.display = isExpanded ? 'none' : 'block';
   }
@@ -402,6 +393,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function goWordPage() {
-    location.href = '/ring-word/wordPage?nickname=' + nickname;
+    location.href = `/ring-word/wordPage?nickname='${nickname}`;
   }
 });

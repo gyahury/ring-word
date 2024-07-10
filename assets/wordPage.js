@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
   const searchButton = document.getElementById('searchButton');
   const lastKey = localStorage.getItem('lastKey');
-
-  fetch(import.meta.env.VITE_API_URL + '/' + nickname + '/words.json')
+ 
+  fetch(`${import.meta.env.VITE_API_URL}/${nickname}/words.json`)
     .then((response) => response.json())
     .then((json) => {
       let data = json.words;
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       cardContainer.appendChild(wordPage);
     }
-    
+
     if (Object.keys(typeCount).length % 3 == 1) {
       for (let i = 0; i < 2; i++) {
         const wordPage = document.createElement('button');
