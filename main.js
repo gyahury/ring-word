@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fetch(requestUrl, { method: 'HEAD' })
         .then((response) => {
           response.ok
-            ? (location.href = `./wordPage?nickname='${inputValue}`)
+            ? (location.href = `./wordPage?nickname=${inputValue}`)
             : alert('file does not exist');
         })
         .catch((error) => {
