@@ -31,16 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderCards(data) {
     const cardContainer = document.getElementById('cardContainer');
-    cardContainer.innerHTML = '';
     const typeCount = {};
-
+    cardContainer.innerHTML = '';
+    
     data.forEach((item) => {
-      if (typeCount[item.type]) {
-        typeCount[item.type]++;
-      } else {
-        typeCount[item.type] = 1;
-      }
+      typeCount[item.type] ? typeCount[item.type]++ : typeCount[item.type] = 1;
     });
+
     for (const type in typeCount) {
       const wordPage = document.createElement('button');
       wordPage.className =
@@ -48,10 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
       wordPage.type = 'button';
       wordPage.textContent = `${type}`;
       wordPage.addEventListener('click', () => {
-        window.location.href = '../word?nickname=' + nickname + '&page=' + type;
+        window.location.href = `../word?nickname=${nickname}&page=${type}`
       });
       cardContainer.appendChild(wordPage);
     }
+    
     if (Object.keys(typeCount).length % 3 == 1) {
       for (let i = 0; i < 2; i++) {
         const wordPage = document.createElement('button');

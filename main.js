@@ -10,11 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'HEAD',
       })
         .then((response) => {
-          if (response.ok) {
-            location.href = './wordPage?nickname=' + inputValue;
-          } else {
-            alert('file does not exist');
-          }
+          response.ok ? location.href = './wordPage?nickname=' + inputValue : alert('file does not exist')
         })
         .catch((error) => {
           console.error('Error checking folder:', error);
