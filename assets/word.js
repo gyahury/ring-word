@@ -112,11 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (wordData.type == 'Checked') {
       changeToUnchecked();
     }
-    if (showingWord) {
-      wordDiv.innerHTML = `${wordData.word}`;
-    } else {
-      wordDiv.innerHTML = `${wordData.furigana}<div style='font-size: clamp(0.7rem, 6vw, 2rem);'>${wordData.meaning}</div>`;
-    }
+    showingWord 
+      ? wordDiv.innerHTML = `${wordData.word}` 
+      : wordDiv.innerHTML = `${wordData.furigana}<div style='font-size: clamp(0.7rem, 6vw, 2rem);'>${wordData.meaning}</div>`;
     curWordCountSpan.textContent = currentIndex + 1;
   }
 
