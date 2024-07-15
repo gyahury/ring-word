@@ -391,6 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function goWordPage() {
-    location.href = `/ring-word/wordPage?nickname='${nickname}`;
+    location.href = `/ring-word/wordPage?nickname=${nickname}`;
   }
 });
